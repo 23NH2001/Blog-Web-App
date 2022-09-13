@@ -1,0 +1,58 @@
+{% extends 'Base.html' %}
+
+<!-- Title -->
+{% block title %}Register New User{% endblock title %} 
+
+{% block css %}
+.formContainer{
+    <!-- border: 2px solid red; -->
+    justify-content: center;
+    margin:2.25% 30%;
+    padding: 4% 5%;
+}   
+{% endblock css %}
+
+{% block body %}
+
+<div class="container-fluid">
+
+    <form class="formContainer" method="POST" action="/register/">
+      {% csrf_token %}
+        <h2>Sign Up</h2>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon2">Image</span>
+          <input type="file" class="form-control" aria-label="image" aria-describedby="basic-addon2" name="user_image">
+        </div>
+            <div class="input-group mb-3">
+            <input type="text" class="form-control" id="fname" name= 'fname'placeholder="First Name" aria-label="fname" aria-describedby="basic-addon1" required>
+            </div>
+
+            <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Last Name" id="lname" name='lname' aria-label="lname" aria-describedby="basic-addon1" required>
+            </div>
+
+            <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="abc@gmail.com" aria-label="email" aria-describedby="basic-addon3" id='email' name='email'  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+            </div>
+
+            <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="+1 647 xxx xxxx" aria-label="number" aria-describedby="basic-addon3" id='phoneNumber' name='Phone_number' pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"required>
+            </div>
+
+            
+            <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon3" id='password' name='password' >
+            </div>
+
+            <button id='reset' type='reset' class="btn btn-warning">Reset</button>
+          <button id='submit' type='submit' class="btn btn-primary">Sign in</button>
+        </div>
+       
+      </form>
+</div>
+
+{% block js %}
+
+{% endblock js %}
+
+{% endblock body %}

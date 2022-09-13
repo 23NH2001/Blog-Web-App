@@ -1,0 +1,162 @@
+{% extends 'Base.html' %}
+{% block title %}My Blogs{% endblock title %}   
+{% block css %}
+.profile-container{
+    display:flex;
+    border:2px solid red;
+    flex-direction:row;
+    justify-content: center;
+}
+.image-item{
+    
+    /* border:2px solid blue; */
+}
+.details-item{
+    /* border:2px solid yellow; */
+    width:80%;
+    text-align: start;
+    padding: 1%;
+    margin-left: 5%;
+}
+
+.Blogcontainer{
+    /* border:2px solid yellow; */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 3px;
+    padding:5px;
+}
+
+.BlogCard{
+    margin:7px 5px;
+    padding:7px 20px;
+    width: 90%;
+    align-self: center;
+    border-bottom: 4px solid rgb(36, 36, 66);
+    border-left: 4px solid rgb(36, 36, 66);
+    border-radius: 30px;
+}
+
+.briefDetail{
+    height: 30%;
+}
+
+.button-format{
+    display:flex;
+    width: 55%;
+    /* border:2px solid red; */
+    flex-wrap: wrap;
+}
+form{
+    margin: 3px;
+}
+{% endblock css %}
+
+{% block body %}
+
+{% for i in user %}
+ <!-- nav profile start  -->
+<div class="profile-container">
+
+    <div class="image-item" >
+        {% if i.profile_image %}
+        <img src="/media/{{i.profile_image}}" alt="{{i.fname}} image" style="height:80px ;border-radius:50%">
+        {% else %}
+        <img src="/media/guest.png" alt="{{i.fname}} image" style="height:80px">
+        {% endif %}
+    </div>
+    <div class="details-item">
+        Name : {{i.fname}} {{i.lname}} <br>
+    </div>
+
+</div>
+
+{% endfor %}
+<!-- nav profile end  -->
+
+<!-- Add Blog start-->
+<div className="add-new-blog">
+<p>
+
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" >
+    Add Blog
+</button>
+
+
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        <form class="formContainer" method="POST" action="/myblog/">
+            {% csrf_token %}
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Title</span>
+            <input type="text" class="form-control" placeholder="Title" aria-label="title" a0ria-describedby="basic-addon1" name="blog_title" required>
+          </div>
+          
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon2">Image</span>
+            <input type="file" class="form-control" aria-label="image" aria-describedby="basic-addon2" name="blog_image">
+          </div>
+          
+          
+          
+        <div class="input-group">
+              <span class="input-group-text">Description</span>
+              </div>
+              <textarea class="form-control" aria-label="With textarea" name="blog_description" required></textarea>
+        <br>
+
+        <div class="input-group mb-3">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="isVisible" >
+                <label class="form-check-label" for="flexSwitchCheckDefault">Visible to Public</label>
+              </div>
+            </div>
+            
+        <div class="input-group mb-3"> 
+            <Button type="submit" class="btn btn-primary">Post</Button>
+            </div>
+        </form>
+
+  </div>
+</div>
+</div>
+<!-- Add Blog end-->
+
+<div class="Blogcontainer">
+    {% for item in blog %}
+    <div class="card BlogCard">
+        
+        <div class="card-body">
+            <div class="blog-title">
+
+                <h4 class="card-title"><b>{{item.title}}</b> </h4>
+                <span> <i>Published on {{item.pub_Date}}</i> </span>
+            </div>
+            <br>
+
+            <div class="blog-brief">
+                <p class="card-text briefDetail" >{{item.discription|slice:":200"}}...</p> 
+                <div class="button-format">
+
+                    <form action="/readmore/" method="get">
+                        <button type="submit" class="btn btn-primary" name="blog_id_btn" value="{{item.blog_id}}">Read More</button>
+                    </form>
+                    
+                    
+                    
+                    <form action="/myblog/" method="get">
+                        <button class="btn btn-danger" value='{{item.blog_id}}' name='delete'>Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+
+</div>
+{% endfor %}
+</div>
+
+
+{% endblock body %}

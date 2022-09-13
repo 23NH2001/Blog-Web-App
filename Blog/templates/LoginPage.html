@@ -1,0 +1,64 @@
+{% extends 'Base.html' %}
+
+{% block title %}Login Page{% endblock title %}
+
+{% block css %}
+.formContainer{
+    display:flex;
+    flex-direction:column;
+    border-top: 5px solid Black;
+    border-bottom: 5px solid Black;
+    justify-content: center;
+    margin: 12% 30%;
+    border-radius: 50px;
+    padding: 1% 5%;
+    
+}   
+.input-field{
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+.btn-format{
+  dispaly:flex;
+}
+{% endblock css %}
+
+
+{% block body %}
+<div class="container-fluid">
+  <form class="formContainer" method="POST" action="/login/">
+      {% csrf_token %}
+      
+        <h2 style="text-align: center;">Login to your Blog</h2>
+
+          <div class="input-field">
+            <div class="input-group mb-3">
+              <input type="email" class="form-control" placeholder="abc@gmail.com" aria-label="email" aria-describedby="basic-addon3" id='email' name='email' style="text-align: center;"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+            </div>
+            
+            <div class="input-group mb-3">
+              <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon3" id='password' name='password' style="text-align: center;" required>
+            </div>
+          </div>
+            <div class="input-group mb-3">
+            <a href="#">Forget password</a>
+            </div>
+            
+            <div class="input-group mb-3">
+            <span><a href="/register">Register</a> here for new account</span>
+            </div>
+            <div class="btn-format">
+
+              <button id='reset' type='reset' class="btn btn-warning">Reset</button>
+              <button id='submit' type='submit' class="btn btn-primary">Login </button>
+            </div>
+        </div>
+       
+      </form>
+</div>
+
+{% endblock body %}

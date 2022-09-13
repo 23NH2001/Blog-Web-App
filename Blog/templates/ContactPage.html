@@ -1,0 +1,49 @@
+{% extends 'Base.html' %}
+{% block title %}Contact Us{% endblock title %}
+
+{% block css %}
+.formContainer{
+    <!-- border: 2px solid red; -->
+    justify-content: center;
+    margin:2.25% 30%;
+    padding: 4% 5%;
+}   
+{% endblock css %}
+
+{% block body %}
+
+<div class="container-fluid">
+
+    <form class="formContainer" method="POST" action="/contact/">
+      {% csrf_token %}
+        <h2>Contact Us</h2>
+        
+            <div class="input-group mb-3">
+                <div class="row">
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="First name" aria-label="First name" name="fname" required>
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" name="lname" required>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="abc@gmail.com" aria-label="email" aria-describedby="basic-addon3" id='email' name='email'  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+            </div>
+
+            <div class="input-group mb-3">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter your message here" name="query"></textarea>
+            </div>
+
+            
+            <button id='reset' type='reset' class="btn btn-warning">Reset</button>
+          <button id='submit' type='submit' class="btn btn-primary">Send</button>
+        </div>
+       
+      </form>
+</div>
+
+
+{% endblock body %}

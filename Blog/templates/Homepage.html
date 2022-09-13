@@ -1,0 +1,72 @@
+{% extends 'Base.html' %}   
+
+<!-- Title -->
+{% block title %}HomePage{% endblock title %} 
+
+<!-- Css Style -->
+{% block css %}
+.Blogcontainer{
+    display:flex;
+    flex-direction:column;
+    margin: 3px 2px;
+    padding: 15px 7px;
+    flex-wrap:wrap;
+}
+
+.BlogCard{
+    margin:7px 5px;
+    padding:7px 20px;
+    width: 90%;
+    align-self: center;
+    border-left: 8px solid rgb(36, 36, 66);
+    border-top: 8px solid rgb(36, 36, 66);
+    border-radius: 50px;
+}
+.desc{
+    display: flex;
+    width: 90%;
+    margin: 3px 1px;
+    padding-top: 8px;
+}
+.name{
+    dispaly:flex;
+    text-align:center;
+    padding-top:2%;
+}
+<!-- .briefDetails{
+    height:20%;
+} -->
+
+
+{% endblock css %}
+
+<!-- Body   -->
+{% block body %}
+{% for item  in user %}
+<div class="name">
+    <h1>Hello {{item.fname}} {{item.lname}}</h1>
+</div>
+ 
+{% endfor %}
+
+<div class="Blogcontainer">
+{% for item  in blogs %}
+    <div class="card BlogCard" >
+        
+        <div class="card-body cardBody">
+            <h4 class="card-title"><b>{{item.title}}</b></h4>
+            <span> <i>Published by <a href="mailto:{{item.user_email}}">{{item.user_email}}</a> on {{item.pub_Date}}</i> </span>
+           
+            <p class="card-text desc"> {{item.discription|slice:":200"}}... </p>
+            <br>
+            <form action="readmore/" method="get">
+                <button type="submit" class="btn btn-primary" name="blog_id_btn" value="{{item.blog_id}}">Read More</button>
+            </form>
+            <br>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock body %}

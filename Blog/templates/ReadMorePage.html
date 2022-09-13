@@ -1,0 +1,103 @@
+{% extends 'Base.html' %} 
+
+{% block title %}Loream{% endblock title %}
+
+{% block css %}
+.blogPage{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* border:2px solid red; */
+    margin: 15px 20px;
+}
+.DetailContainer{
+    display:flex;
+    flex-direction: column;
+}
+.imageContainer{
+    /* border: 2px solid red; */
+    
+}
+.contentContainer{
+    /* border: 2px solid blue; */
+    word-wrap: normal;
+    
+    padding: 20px;
+}
+
+{% endblock css %}
+
+{% block body %}
+
+
+<div class="blogPage">
+{% for item in data %}
+    <div class="titleContainer">
+    
+    <h2>
+    {{item.title}}
+    </h2>
+    
+    </div>
+    <div class="DetailContainer">
+        
+        <div class="contentContainer">
+            {{item.discription}}
+        </div>
+        <div class="misc">
+            <span>Published by <a href="mailto:{{item.user_email}}">{{item.user_email}}</a> at {{item.pub_Date}}</span><br>
+            
+        </div>
+    </div>
+
+    <br>
+    {% if editable %}
+
+    <!-- Add Blog start-->
+<div className="add-new-blog">
+    <p>
+    
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" >
+        Edit Blog
+    </button>
+    
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <form class="formContainer" method="POST" action="/edit/">
+                {% csrf_token %}
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Title</span>
+                <input type="text" class="form-control" placeholder="Title" aria-label="title" aria-describedby="basic-addon1" name="blog_title" value="{{item.title}}">
+              </div>
+              
+
+              
+            <div class="input-group">
+                  <span class="input-group-text">Description</span>
+                </div>
+            <textarea class="form-control" aria-label="With textarea" name="blog_description">{{item.discription}}</textarea>
+            <br>
+    
+            <div class="input-group mb-3">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="isVisible" defaultValue={{item.visibility}}>
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Visible to Public</label>
+                  </div>
+                </div>
+                <input type="number" name="blog_id" value="{{item.blog_id}}" readonly hidden>
+                <div class="input-group mb-3"> 
+                <Button type="submit" class="btn btn-primary">Post</Button>
+                </div>
+            </form>
+    
+      </div>
+    </div>
+    </div>
+
+    
+    {% endif %}
+    {% endfor %}
+    
+</div>
+{% endblock body %}
